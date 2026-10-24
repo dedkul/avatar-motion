@@ -8,9 +8,9 @@ Give your coding agent a photo. It uses the bundled visual reference to create y
 
 ## See it move
 
-[![Animated demonstration of the approved avatar tracking the cursor, movement controls and export options](docs/demo.gif)](https://github.com/dedkul/avatar-motion/blob/main/docs/demo.mp4)
+[![Animated demonstration of the approved avatar tracking the cursor, movement controls and export options](docs/demo.gif)](https://dedkul.github.io/avatar-motion/)
 
-[Watch the full 20-second video with sound — 1080p, 60 fps](https://github.com/dedkul/avatar-motion/blob/main/docs/demo.mp4).
+[Watch the full 20-second video with sound — 1080p, 60 fps](https://dedkul.github.io/avatar-motion/).
 
 The inline preview is an animated GIF for GitHub README compatibility. The linked MP4 preserves the full video quality. Recorded from the original fitted avatar prototype; it demonstrates the intended result rather than an automatic transformation of an unseen photo. [Media credits](docs/media-credits.txt).
 
