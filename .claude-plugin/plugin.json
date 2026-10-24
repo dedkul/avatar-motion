@@ -1,7 +1,7 @@
 {
   "name": "avatar-motion",
-  "version": "0.1.0",
-  "description": "Create fitted cursor-responsive illustrated avatars with local Framer and HTML exports.",
+  "version": "0.1.1",
+  "description": "Create avatars in the bundled warm cartoon illustration style, with cursor tracking and Framer or HTML exports.",
   "author": {
     "name": "dedkul",
     "url": "https://github.com/dedkul"

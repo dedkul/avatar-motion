@@ -7,7 +7,7 @@
     {
       "name": "avatar-motion",
       "source": "./",
-      "description": "Create fitted cursor-responsive illustrated avatars with local Framer and HTML exports."
+      "description": "Create avatars in the bundled warm cartoon illustration style, with cursor tracking and Framer or HTML exports."
     }
   ]
 }

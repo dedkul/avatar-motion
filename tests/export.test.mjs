@@ -19,8 +19,8 @@ import {
   loadRuntime,
 } from "../skills/avatar-motion/scripts/build.mjs";
 const root = fileURLToPath(new URL("../", import.meta.url));
-const image = resolve(root, "skills/avatar-motion/assets/demo.svg");
-const rig = resolve(root, "skills/avatar-motion/assets/demo.rig.json");
+const image = resolve(root, "tests/fixtures/geometry.svg");
+const rig = resolve(root, "tests/fixtures/geometry.rig.json");
 async function work(run) {
   const dir = await mkdtemp(resolve(tmpdir(), "avatar-motion-test-"));
   try {

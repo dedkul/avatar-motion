@@ -1,0 +1,8 @@
+Music: Happy Beats / Business Moves Vol. 12 — Sascha Ende, ende.app.
+Source: https://ende.app/en
+License: CC BY 4.0 — https://ende.app/en/standard-license
+Changes: excerpted to 20 seconds, with fade-in, fade-out and volume reduction.
+Bundled with latent-spaces/brag 0.5.0.
+
+Interaction sound: mouseclick1.ogg, bundled with latent-spaces/brag 0.5.0.
+Portrait: the user-selected project illustration. No input photos or guidebooks are included in the film.

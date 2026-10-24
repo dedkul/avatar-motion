@@ -5,14 +5,24 @@ import { loadRuntime } from "../skills/avatar-motion/scripts/build.mjs";
 const { mod } = await loadRuntime();
 const fixture = JSON.parse(
   await readFile(
-    new URL("../skills/avatar-motion/assets/demo.rig.json", import.meta.url),
+    new URL("./fixtures/geometry.rig.json", import.meta.url),
     "utf8",
   ),
 );
 const copy = () => structuredClone(fixture);
-test("the fictional example fits the versioned schema", () => {
+test("the synthetic geometry fixture fits the versioned schema", () => {
   assert.doesNotThrow(() => mod.validateRig(fixture));
   assert.ok(mod.createFragment(fixture).includes("void main()"));
+});
+test("the approved portrait rig builds a valid fragment shader", async () => {
+  const portraitRig = JSON.parse(
+    await readFile(
+      new URL("../skills/avatar-motion/assets/demo.rig.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.doesNotThrow(() => mod.validateRig(portraitRig));
+  assert.ok(mod.createFragment(portraitRig).includes("void main()"));
 });
 for (const [label, mutate] of [
   [

@@ -1,16 +1,32 @@
 # Avatar Motion
 
-**Make an illustrated face follow the cursor.**
+**Your face, this illustration style, alive to the cursor.**
 
 An installable agent skill for cursor-responsive portfolio avatars: eye tracking, head movement, pinned hair tips, breathing, click expressions and local **Framer / HTML exports**.
 
-Give your coding agent a photo or an existing illustration. The skill guides illustration creation, fits an image-specific rig, and uses a bundled renderer rather than rebuilding the animation from scratch each time.
+Give your coding agent a photo. It uses the bundled visual reference to create your avatar in this specific warm cartoon style, fits an image-specific rig, and adds cursor interaction with the bundled renderer.
 
-> **Experimental v0.1.** This is an agent-assisted fitting workflow, not a one-click face detector. Illustration generation depends on your agent's available tools. Start with front-facing or slightly turned busts with visible light eye whites and dark pupils. Review the result before shipping it.
+## See it move
 
-<img src="skills/avatar-motion/assets/demo.svg" width="300" alt="Fictional demo character" />
+[![Animated demonstration of the approved avatar tracking the cursor, movement controls and export options](docs/demo.gif)](https://github.com/dedkul/avatar-motion/blob/main/docs/demo.mp4)
 
-The demo is fictional. No personal photos, portrait assets, guidebooks, launch videos or credentials are included.
+[Watch the full 20-second video with sound — 1080p, 60 fps](https://github.com/dedkul/avatar-motion/blob/main/docs/demo.mp4).
+
+The inline preview is an animated GIF for GitHub README compatibility. The linked MP4 preserves the full video quality. Recorded from the original fitted avatar prototype; it demonstrates the intended result rather than an automatic transformation of an unseen photo. [Media credits](docs/media-credits.txt).
+
+## One illustration style, your identity
+
+<img src="skills/avatar-motion/references/style-reference.png" width="420" alt="Approved style reference: rounded cartoon portrait with coral-red nose, expressive oval eyes, slightly enlarged ears, sculpted dark hair and warm shaded shapes" />
+
+**This is the visual target for the skill.** Rounded facial forms, a small coral-red nose, subtly rosy cheeks, slightly enlarged ears, large ivory oval eyes, single-shade eyebrows and sculpted hair shapes, finished like a polished 2D Illustrator illustration with controlled warm shading.
+
+Your facial structure, natural skin tone, hair texture and hairstyle, facial hair, clothing and pose can vary. The rendering style stays consistent. The example's identity, red shirt and blue background are not a template to copy onto everyone.
+
+The installed skill includes this image and [art-direction guidance](skills/avatar-motion/references/art-direction.md). It requires the agent to inspect the reference, use it as an image-generation style input, and check the result against it before animation. A generic geometric face, extremely low-poly icon, 3D avatar or paper-cutout treatment is not an acceptable substitute.
+
+> **Experimental v0.1.1.** This is an agent-assisted illustration and fitting workflow, not a one-click face detector or a trained style model. Illustration generation needs an image tool that accepts visual references. The reference and review steps aim for style consistency; identical results across models are not guaranteed. Start with front-facing or slightly turned busts with visible eye whites and dark pupils.
+
+The approved illustration and demo video are shared with the creator's permission. Input photos, guidebooks and credentials are not included.
 
 ## Install
 
@@ -44,13 +60,13 @@ Start a new agent conversation after installing if the skill is not yet discover
 
 Attach a clear face photo or an illustration and ask:
 
-> Use the avatar-motion skill to make this into an illustrated portfolio avatar. Give it expressive cursor-following eyes, subtle head movement, breathing and isolated hair-tip motion. Preserve my likeness and export a Framer component plus standalone HTML.
+> Use avatar-motion to turn my photo into an avatar in its bundled reference style: warm rounded cartoon shapes, a coral nose, slightly enlarged ears and expressive oval eyes. Preserve my likeness, skin tone and hairstyle. Add cursor-following eyes, subtle head movement, breathing and isolated hair-tip motion, then export a Framer component and standalone HTML.
 
-For existing art:
+For existing art in this style:
 
 > Animate this illustration with avatar-motion. Keep the drawing intact. Fit the eyes and hair tips, show me the preview, and let me adjust the intensity.
 
-The agent needs image inspection and file/shell access. Generating an illustration from a photo also needs an available image-generation tool, or a suitable agent-drawn SVG. There is no image API key or hosted generation service bundled with this repo. If a tool is unavailable, the skill tells the agent to explain that rather than silently pretending a photo is a cartoon.
+The agent needs image inspection and file/shell access. Generating an illustration from a photo also needs an image-generation tool that accepts the bundled style image alongside the identity photo. There is no image API key or hosted generation service bundled with this repo. If the required image tools are unavailable, the skill asks for a matching illustration instead of producing a simplified substitute.
 
 ## Try the included demo
 
@@ -63,7 +79,7 @@ npm run demo
 npm run preview
 ```
 
-Open `http://127.0.0.1:8812/preview.html`. Move the cursor, click the character, try Slow blink and adjust the sliders. Use the preview's export buttons to save your chosen defaults.
+Open `http://127.0.0.1:8812/preview.html`. The runnable demo uses the approved illustration above, with its own fitted rig. Move the cursor, click the character, try Slow blink and adjust the sliders. Use the preview's export buttons to save your chosen defaults. These coordinates apply only to this portrait; every new face needs fitting.
 
 For your own fitted illustration:
 
@@ -109,6 +125,6 @@ npm test
 npm run typecheck
 ```
 
-Tests cover rig validation, safe export handling, overwrite protection and generated component types. Visual fitting still needs browser review. The implementation lives inside the installable skill so scripts, runtime, templates and references travel together.
+Tests cover rig validation, safe export handling, overwrite protection and generated component types. The simple SVG in `tests/fixtures/` tests geometry and export mechanics only; it is excluded from the installed skill and is not an illustration-quality example. Visual fitting still needs browser review. The implementation and approved style reference live inside the installable skill so they travel together.
 
 MIT licensed. Not affiliated with Framer, Rive, OpenAI or Anthropic. Created from a portfolio-avatar experiment; packaged as a reusable workflow rather than a promise of perfect one-shot generation.

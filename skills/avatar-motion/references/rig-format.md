@@ -2,7 +2,7 @@
 
 Rig version 1 uses **native image pixels**, with origin at the top left, x rightwards and y downwards. `size` must exactly match the decoded image. Do not resize an illustration after fitting without updating the rig. The runtime letterboxes arbitrary container sizes instead of stretching the face.
 
-Use `assets/demo.svg` and `assets/demo.rig.json` as an executable example. Every coordinate and radius belongs to that fictional character. Other faces require their own measurements.
+Use `references/style-reference.png` and `assets/demo.rig.json` as an executable example. Every coordinate and radius belongs to that specific approved portrait. Other faces require their own measurements. The repository's `tests/fixtures/geometry.svg` is only a synthetic validation fixture, never an art reference or a generated-quality example.
 
 ## Required fields
 

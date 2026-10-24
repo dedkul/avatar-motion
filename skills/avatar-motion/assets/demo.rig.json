@@ -1,67 +1,96 @@
 {
   "version": 1,
-  "size": [600, 600],
-  "lookOrigin": [300, 270],
+  "size": [1254, 1254],
+  "lookOrigin": [627, 552],
   "head": {
-    "pivot": [300, 425],
-    "fullUntil": 400,
-    "fadeUntil": 495,
-    "maxTilt": 5.5,
-    "travel": [11, 9]
+    "pivot": [639, 865],
+    "fullUntil": 755,
+    "fadeUntil": 1035,
+    "maxTilt": 5.443099,
+    "travel": [23, 18]
   },
   "eyes": [
     {
-      "center": [240, 271],
-      "radius": [35, 43],
-      "pupilCenter": [240, 273],
-      "pupilRadius": [18, 30],
-      "travel": [13, 13, 9, 9],
-      "whiteSample": [213, 275],
-      "skinSample": [290, 280],
-      "lidInset": 5,
-      "lashDepth": 14
+      "center": [442, 531],
+      "radius": [49, 65],
+      "pupilCenter": [462.5, 535],
+      "pupilRadius": [27, 49],
+      "travel": [37, 8, 20, 20],
+      "whiteSample": [416, 538],
+      "skinSample": [520, 530],
+      "lidInset": 8,
+      "lashDepth": 21
     },
     {
-      "center": [360, 271],
-      "radius": [35, 43],
-      "pupilCenter": [360, 273],
-      "pupilRadius": [18, 30],
-      "travel": [13, 13, 9, 9],
-      "whiteSample": [333, 275],
-      "skinSample": [310, 280],
+      "center": [676, 526],
+      "radius": [66, 66],
+      "pupilCenter": [700, 528],
+      "pupilRadius": [36.5, 53],
+      "travel": [50, 8, 20, 20],
+      "whiteSample": [639, 533],
+      "skinSample": [770, 540],
       "lidInset": 5,
-      "lashDepth": 14
+      "lashDepth": 21
     }
   ],
   "hair": [
     {
-      "root": [432, 139],
-      "tip": [446, 80],
-      "width": 19,
+      "root": [416, 179],
+      "tip": [307, 133],
+      "width": 44,
+      "angle": 0.115,
+      "phase": 0,
+      "follow": 0.1
+    },
+    {
+      "root": [887, 246],
+      "tip": [869, 159],
+      "width": 30,
       "angle": 0.12,
-      "phase": -0.6,
+      "phase": -0.65,
       "follow": 0.08
     },
     {
-      "root": [237, 101],
-      "tip": [198, 66],
-      "width": 24,
-      "angle": 0.12,
-      "phase": 0,
+      "root": [927, 277],
+      "tip": [981, 319],
+      "width": 31,
+      "angle": 0.1,
+      "phase": -1.1,
       "follow": 0.08
+    },
+    {
+      "root": [292, 270],
+      "tip": [250, 342],
+      "width": 31,
+      "angle": 0.075,
+      "phase": -0.9,
+      "follow": 0
     }
   ],
   "breath": {
-    "centerX": 300,
-    "start": 430,
-    "full": 500,
-    "hem": 599,
+    "centerX": 627,
+    "start": 790,
+    "full": 1000,
+    "hem": 1195,
     "width": 0.025,
-    "rise": 3.3,
+    "rise": 7,
     "rate": 1.48
   },
-  "brows": [{ "bounds": [328, 197, 392, 223], "lift": 6, "lowerLimit": 229 }],
-  "mouth": { "center": [300, 365], "radius": [46, 25], "gain": [0.09, 0.16] },
-  "cropY": 570,
+  "brows": [
+    {
+      "bounds": [368, 390, 487, 442],
+      "lift": 0,
+      "lowerLimit": 458,
+      "color": [0.14, 0.075, 0.08]
+    },
+    {
+      "bounds": [586, 373, 767, 430],
+      "lift": 12,
+      "lowerLimit": 444,
+      "color": [0.14, 0.075, 0.08]
+    }
+  ],
+  "mouth": { "center": [572, 681], "radius": [99, 46], "gain": [0.09, 0.16] },
+  "cropY": 1100,
   "defaults": { "eyes": 1, "head": 0.85, "hair": 1, "breath": 0.85 }
 }
