@@ -1,0 +1,20 @@
+{
+  "name": "avatar-motion-skill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "An installable agent skill for fitted cursor-responsive illustrated avatars, with local Framer and HTML export tools.",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "demo": "node skills/avatar-motion/scripts/build.mjs --image skills/avatar-motion/assets/demo.svg --rig skills/avatar-motion/assets/demo.rig.json --out demo-output",
+    "preview": "node skills/avatar-motion/scripts/serve.mjs demo-output"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "@types/react": "^19.2.0"
+  }
+}

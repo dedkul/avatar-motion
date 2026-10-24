@@ -1,0 +1,13 @@
+{
+  "name": "avatar-motion",
+  "owner": {
+    "name": "dedkul"
+  },
+  "plugins": [
+    {
+      "name": "avatar-motion",
+      "source": "./",
+      "description": "Create fitted cursor-responsive illustrated avatars with local Framer and HTML exports."
+    }
+  ]
+}

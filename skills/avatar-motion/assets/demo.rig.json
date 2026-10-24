@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "size": [600, 600],
+  "lookOrigin": [300, 270],
+  "head": {
+    "pivot": [300, 425],
+    "fullUntil": 400,
+    "fadeUntil": 495,
+    "maxTilt": 5.5,
+    "travel": [11, 9]
+  },
+  "eyes": [
+    {
+      "center": [240, 271],
+      "radius": [35, 43],
+      "pupilCenter": [240, 273],
+      "pupilRadius": [18, 30],
+      "travel": [13, 13, 9, 9],
+      "whiteSample": [213, 275],
+      "skinSample": [290, 280],
+      "lidInset": 5,
+      "lashDepth": 14
+    },
+    {
+      "center": [360, 271],
+      "radius": [35, 43],
+      "pupilCenter": [360, 273],
+      "pupilRadius": [18, 30],
+      "travel": [13, 13, 9, 9],
+      "whiteSample": [333, 275],
+      "skinSample": [310, 280],
+      "lidInset": 5,
+      "lashDepth": 14
+    }
+  ],
+  "hair": [
+    {
+      "root": [432, 139],
+      "tip": [446, 80],
+      "width": 19,
+      "angle": 0.12,
+      "phase": -0.6,
+      "follow": 0.08
+    },
+    {
+      "root": [237, 101],
+      "tip": [198, 66],
+      "width": 24,
+      "angle": 0.12,
+      "phase": 0,
+      "follow": 0.08
+    }
+  ],
+  "breath": {
+    "centerX": 300,
+    "start": 430,
+    "full": 500,
+    "hem": 599,
+    "width": 0.025,
+    "rise": 3.3,
+    "rate": 1.48
+  },
+  "brows": [{ "bounds": [328, 197, 392, 223], "lift": 6, "lowerLimit": 229 }],
+  "mouth": { "center": [300, 365], "radius": [46, 25], "gain": [0.09, 0.16] },
+  "cropY": 570,
+  "defaults": { "eyes": 1, "head": 0.85, "hair": 1, "breath": 0.85 }
+}

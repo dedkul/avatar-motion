@@ -1,0 +1,14 @@
+{
+  "name": "avatar-motion",
+  "version": "0.1.0",
+  "description": "Create fitted cursor-responsive illustrated avatars with local Framer and HTML exports.",
+  "author": {
+    "name": "dedkul",
+    "url": "https://github.com/dedkul"
+  },
+  "repository": "https://github.com/dedkul/avatar-motion",
+  "homepage": "https://github.com/dedkul/avatar-motion",
+  "license": "MIT",
+  "keywords": ["avatar", "animation", "skill", "framer", "cursor-tracking"],
+  "skills": "./skills/"
+}

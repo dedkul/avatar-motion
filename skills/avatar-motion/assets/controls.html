@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Avatar Motion preview</title>
+    <style>
+      :root {
+        font:
+          15px/1.5 Arial,
+          sans-serif;
+        color: #ecebe5;
+        background: #191b1e;
+        --line: #41464b;
+        --accent: #a5dcfc;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 28px;
+      }
+      main {
+        max-width: 1060px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 290px;
+        gap: 36px;
+      }
+      h1 {
+        font-weight: 500;
+        font-size: 28px;
+        margin: 0 0 8px;
+      }
+      p {
+        color: #bbc1c4;
+        margin: 0 0 20px;
+      }
+      #frame {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #25292e;
+        position: relative;
+      }
+      #avatar {
+        position: absolute;
+        inset: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      #original {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: none;
+      }
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
+      button,
+      select {
+        font: inherit;
+        cursor: pointer;
+        color: inherit;
+        background: #24282c;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 9px 11px;
+      }
+      button[aria-pressed="true"] {
+        background: #a5dcfc;
+        color: #17212a;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+      label {
+        display: block;
+        margin: 16px 0;
+      }
+      .label {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+      output {
+        color: var(--accent);
+      }
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--accent);
+      }
+      select {
+        width: 100%;
+      }
+      aside h2 {
+        font-size: 17px;
+        margin: 0 0 16px;
+      }
+      aside button {
+        width: 100%;
+        margin: 5px 0;
+      }
+      .check {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+      }
+      .help {
+        font-size: 12px;
+      }
+      pre {
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        font: 11px/1.5 monospace;
+        color: #c9d9e2;
+      }
+      #error {
+        color: #ffb4a5;
+      }
+      a {
+        color: var(--accent);
+      }
+      @media (max-width: 720px) {
+        body {
+          padding: 18px;
+        }
+        main {
+          display: block;
+        }
+        aside {
+          margin-top: 30px;
+        }
+        #frame {
+          max-width: 520px;
+        }
+        h1 {
+          font-size: 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h1 id="name">Avatar Motion</h1>
+        <p>Move your pointer. Click to change expression.</p>
+        <div id="frame">
+          <button
+            id="avatar"
+            aria-label="Animated avatar. Click to change expression."
+          ></button
+          ><img id="original" alt="Source illustration" />
+        </div>
+        <div class="toolbar">
+          <button id="compare" aria-pressed="false">Original</button
+          ><button id="rest" aria-pressed="false">Neutral</button
+          ><button id="autoplay" aria-pressed="false">Look around</button
+          ><button id="pause" aria-pressed="false">Pause</button
+          ><button id="blink">Blink</button
+          ><button id="slow">Slow blink</button>
+        </div>
+        <p id="status" class="help" role="status">
+          Experimental fitted portrait. Inspect at the size you will use.
+        </p>
+        <p id="error" role="alert"></p>
+        <details>
+          <summary>Inspect fitting</summary>
+          <div class="toolbar">
+            <button data-look="-1,0">Look left</button
+            ><button data-look="1,0">Look right</button
+            ><button data-look="0,-1">Look up</button
+            ><button data-look="0,1">Look down</button
+            ><button id="resume">Resume tracking</button>
+          </div>
+          <button id="verify">Compare neutral source</button>
+          <pre id="report"></pre>
+        </details>
+      </section>
+      <aside>
+        <h2>Movement</h2>
+        <div id="fields"></div>
+        <label
+          ><span class="label">Tracking</span
+          ><select id="tracking">
+            <option>Page</option>
+            <option>Nearby</option>
+          </select></label
+        ><label
+          ><span class="label"
+            >Nearby radius <output id="radius-value"></output></span
+          ><input
+            id="radius"
+            aria-label="Nearby radius"
+            type="range"
+            min="100"
+            max="3000"
+            step="50" /></label
+        ><label
+          ><span class="label"
+            >Blink interval <output id="blinkEvery-value"></output></span
+          ><input
+            id="blinkEvery"
+            aria-label="Blink interval"
+            type="range"
+            min="2"
+            max="20"
+            step=".5" /></label
+        ><label
+          ><span class="label"
+            >Eye closure <output id="closure-value">Automatic</output></span
+          ><input
+            id="closure"
+            aria-label="Eye closure"
+            type="range"
+            min="0"
+            max="1"
+            step=".01"
+            value="0" /></label
+        ><button id="automatic">Automatic blinking</button
+        ><label class="check" id="crop-label"
+          ><input type="checkbox" id="crop" />Straight bottom crop</label
+        >
+        <h2 style="margin-top: 28px">Export</h2>
+        <button id="tsx">Download Framer component</button
+        ><button id="html">Download standalone HTML</button
+        ><button id="settings">Download settings JSON</button>
+        <p class="help" style="margin-top: 16px">
+          Framer: Assets → Code → create a code file, paste the .tsx, save, then
+          test in Preview. Page-wide tracking works in a Code Component; an
+          iframe sees its own document only.
+        </p>
+      </aside>
+    </main>
+    <script>
+      /* RUNTIME */
+      /* DATA */
+      /* LABEL */
+      const config = { ...EXPORTED_CONFIG };
+      const host = document.getElementById("avatar");
+      let rig;
+      const fields = [
+        ["eyes", "Eye travel"],
+        ["head", "Head turn"],
+        ["hair", "Hair tips"],
+        ["breath", "Breathing"],
+      ];
+      document.getElementById("fields").innerHTML = fields
+        .map(
+          ([id, label]) =>
+            `<label><span class="label">${label}<output id="${id}-value"></output></span><input id="${id}" aria-label="${label}" type="range" min="0" max="1.5" step=".05"></label>`,
+        )
+        .join("");
+      document.getElementById("original").src = PORTRAIT;
+      function sync() {
+        for (const key of [
+          "eyes",
+          "head",
+          "hair",
+          "breath",
+          "radius",
+          "blinkEvery",
+        ]) {
+          document.getElementById(key).value = config[key];
+          document.getElementById(key + "-value").textContent =
+            key === "radius"
+              ? config[key] + " px"
+              : key === "blinkEvery"
+                ? config[key] + " s"
+                : Math.round(config[key] * 100) + "%";
+        }
+        document.getElementById("tracking").value = config.tracking;
+        document.getElementById("crop").checked = config.straightBottom;
+        document.getElementById("crop-label").hidden = !RIG.cropY;
+        document.getElementById("frame").style.aspectRatio =
+          RIG.size[0] +
+          "/" +
+          (config.straightBottom && RIG.cropY ? RIG.cropY : RIG.size[1]);
+        document.getElementById("radius").disabled =
+          config.tracking !== "Nearby";
+      }
+      function clearInspection() {
+        rig?.neutral(false);
+        rig?.scrub(null);
+        config.paused = false;
+        document.getElementById("rest").setAttribute("aria-pressed", "false");
+        document
+          .getElementById("compare")
+          .setAttribute("aria-pressed", "false");
+        document.getElementById("pause").setAttribute("aria-pressed", "false");
+        document.getElementById("original").style.display = "none";
+        document.getElementById("closure").value = 0;
+        document.getElementById("closure-value").textContent = "Automatic";
+      }
+      function update() {
+        rig?.update(config);
+        sync();
+      }
+      for (const key of [
+        "eyes",
+        "head",
+        "hair",
+        "breath",
+        "radius",
+        "blinkEvery",
+        "tracking",
+      ])
+        document.getElementById(key).oninput = (e) => {
+          config[key] =
+            key === "tracking" ? e.target.value : Number(e.target.value);
+          update();
+        };
+      document.getElementById("crop").onchange = (e) => {
+        config.straightBottom = e.target.checked;
+        update();
+      };
+      document.getElementById("compare").onclick = (e) => {
+        const on = e.target.getAttribute("aria-pressed") !== "true";
+        e.target.setAttribute("aria-pressed", on);
+        document.getElementById("original").style.display = on
+          ? "block"
+          : "none";
+        config.paused = on;
+        update();
+      };
+      document.getElementById("rest").onclick = (e) => {
+        const on = e.target.getAttribute("aria-pressed") !== "true";
+        e.target.setAttribute("aria-pressed", on);
+        rig.neutral(on);
+      };
+      document.getElementById("pause").onclick = (e) => {
+        config.paused = !config.paused;
+        e.target.setAttribute("aria-pressed", config.paused);
+        update();
+      };
+      document.getElementById("autoplay").onclick = (e) => {
+        clearInspection();
+        config.autoplay = !config.autoplay;
+        e.target.setAttribute("aria-pressed", config.autoplay);
+        update();
+      };
+      for (const [id, slow] of [
+        ["blink", false],
+        ["slow", true],
+      ])
+        document.getElementById(id).onclick = () => {
+          clearInspection();
+          update();
+          rig.blink(slow);
+        };
+      document.getElementById("closure").oninput = (e) => {
+        rig.neutral(false);
+        rig.scrub(Number(e.target.value));
+        document.getElementById("closure-value").textContent =
+          Math.round(e.target.value * 100) + "%";
+      };
+      document.getElementById("automatic").onclick = () => {
+        clearInspection();
+        update();
+      };
+      for (const button of document.querySelectorAll("[data-look]"))
+        button.onclick = () => {
+          clearInspection();
+          const [x, y] = button.dataset.look.split(",").map(Number);
+          config.paused = true;
+          update();
+          rig.pose(x, y);
+        };
+      document.getElementById("resume").onclick = () => {
+        clearInspection();
+        update();
+      };
+      document.getElementById("verify").onclick = () => {
+        document.getElementById("report").textContent = JSON.stringify(
+          rig.verifyRestPose(),
+          null,
+          2,
+        );
+      };
+      host.addEventListener(
+        "avatar-expression",
+        (e) =>
+          (document.getElementById("status").textContent =
+            "Expression: " + e.detail),
+      );
+      host.addEventListener(
+        "avatar-error",
+        (e) => (document.getElementById("error").textContent = e.detail),
+      );
+      function save(name, text, type) {
+        const url = URL.createObjectURL(new Blob([text], { type }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = name;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        document.getElementById("status").textContent = name + " downloaded.";
+      }
+      async function download(file) {
+        const response = await fetch("./" + file);
+        if (!response.ok)
+          throw Error("Serve this output over HTTP to download exports");
+        const source = await response.text();
+        const current = { ...config, paused: false, autoplay: false };
+        const output = withSettings(source, current);
+        save(file, output, file.endsWith(".html") ? "text/html" : "text/plain");
+      }
+      document.getElementById("tsx").onclick = () =>
+        download("AvatarMotion.tsx").catch(
+          (e) => (document.getElementById("error").textContent = e.message),
+        );
+      document.getElementById("html").onclick = () =>
+        download("avatar.html").catch(
+          (e) => (document.getElementById("error").textContent = e.message),
+        );
+      document.getElementById("settings").onclick = () =>
+        save(
+          "settings.json",
+          JSON.stringify(
+            { ...config, paused: false, autoplay: false },
+            null,
+            2,
+          ),
+          "application/json",
+        );
+      sync();
+      mountAvatar(host, PORTRAIT, RIG, config)
+        .then((value) => {
+          rig = value;
+        })
+        .catch((error) => {
+          document.getElementById("error").textContent = error.message;
+          const img = new Image();
+          img.src = PORTRAIT;
+          img.alt = "Static avatar";
+          img.style.cssText = "width:100%;height:100%;object-fit:contain";
+          host.replaceChildren(img);
+          document.querySelectorAll("button,input,select").forEach((el) => {
+            el.disabled = true;
+          });
+        });
+      window.addEventListener("pagehide", () => rig?.destroy(), { once: true });
+    </script>
+  </body>
+</html>
